@@ -210,7 +210,7 @@ class CDNFile extends DataExtension {
     public function getCdnLink() {
         $pointer = $this->owner->obj('CDNFile');
 
-		if($pointer->exists() && $reader = $this->reader()) {
+		if($reader = $this->reader()) {
 			return $reader->getURL();
 		}
     }

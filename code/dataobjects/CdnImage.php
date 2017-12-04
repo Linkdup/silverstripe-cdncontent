@@ -280,6 +280,52 @@ class CdnImage extends \Image {
 
 		return $fields;
 	}
+	
+	/**
+	 * Get relative link
+	 * 
+	 * We do not have a relative link as all the files should be on the CDN.
+	 * The HTMLEditor uses the relative link when adding images. This might not
+	 * be the best area to fix this, but for now we need it to make sure client
+	 * can see image in editor.
+	 * 
+	 * @return string hyperlink
+	 */
+	public function RelativeLink() {
+		return $this->getCdnLink();
+	}
+	
+	/**
+	 * Get link to CDN image
+	 * 
+	 * @return string hyperlink
+	 */
+	public function Link() {
+		return $this->getCdnLink();
+	}
+	
+	/**
+	 * Check if file exists
+	 * 
+	 * @return boolean
+	 */
+	public function exists() {
+		parent::exists();
+		return (empty($this->getCdnLink())) ? false : true;
+	}
+	
+	/**
+	 * 
+	 * @return string
+	 */
+    public function getCdnLink() {
+        $pointer = $this->obj('CDNImage');
+		
+		if($reader = $this->reader()) {
+			return $reader->getURL();
+		}
+    }
+	
 }
 
 
